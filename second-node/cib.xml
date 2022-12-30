@@ -1,0 +1,32 @@
+<cib crm_feature_set="3.0.14" validate-with="pacemaker-2.10" epoch="10" num_updates="0" admin_epoch="0" cib-last-written="Thu Dec 29 15:14:23 2022" update-origin="brave" update-client="cibadmin" update-user="root" have-quorum="1" dc-uuid="1">
+  <configuration>
+    <crm_config>
+      <cluster_property_set id="cib-bootstrap-options">
+        <nvpair id="cib-bootstrap-options-have-watchdog" name="have-watchdog" value="false"/>
+        <nvpair id="cib-bootstrap-options-dc-version" name="dc-version" value="1.1.23-1.el7_9.1-9acf116022"/>
+        <nvpair id="cib-bootstrap-options-cluster-infrastructure" name="cluster-infrastructure" value="corosync"/>
+        <nvpair id="cib-bootstrap-options-cluster-name" name="cluster-name" value="Twins"/>
+      </cluster_property_set>
+    </crm_config>
+    <nodes>
+      <node id="1" uname="brave"/>
+      <node id="2" uname="strong"/>
+    </nodes>
+    <resources>
+      <group id="apachegroup">
+        <primitive class="ocf" id="WebSite" provider="heartbeat" type="apache">
+          <instance_attributes id="WebSite-instance_attributes">
+            <nvpair id="WebSite-instance_attributes-configfile" name="configfile" value="/etc/httpd/conf/httpd.conf"/>
+            <nvpair id="WebSite-instance_attributes-statusurl" name="statusurl" value="http://localhost/server-status"/>
+          </instance_attributes>
+          <operations>
+            <op id="WebSite-monitor-interval-10s" interval="10s" name="monitor" timeout="20s"/>
+            <op id="WebSite-start-interval-0s" interval="0s" name="start" timeout="40s"/>
+            <op id="WebSite-stop-interval-0s" interval="0s" name="stop" timeout="60s"/>
+          </operations>
+        </primitive>
+      </group>
+    </resources>
+    <constraints/>
+  </configuration>
+</cib>
